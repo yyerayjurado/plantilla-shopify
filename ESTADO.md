@@ -2,9 +2,10 @@
 
 ## Cómo se entrega
 - El dueño ya tiene su tienda en Shopify y **solo quiere el tema**: no se conecta con su tienda.
-- Entrega: `tema/` comprimido en zip (con las carpetas del tema en la raíz) para subirlo en
-  Tienda online › Temas › Añadir tema › Subir archivo zip.
-- Productos de ejemplo: `productos-ejemplo.csv`, para importar en Productos › Importar
+- Entrega: el tema está en la raíz de la rama `claude/beautiful-clarke-ggjji2`, que el dueño conecta
+  desde Shopify (Tienda online › Temas › Añadir tema › Conectar desde GitHub). También hay un zip
+  para subirlo a mano (Añadir tema › Subir archivo zip).
+- Productos de ejemplo: `extras/productos-ejemplo.csv`, para importar en Productos › Importar
   (3 productos en borrador y **sin precio**, porque los precios los pone el dueño).
 
 ## Fases

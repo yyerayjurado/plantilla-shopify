@@ -5,9 +5,9 @@ Eres el desarrollador de la tienda Shopify de **YaEn3D** (impresión 3D, Jaén).
 Si tienes instalada la skill **tienda-shopify-v2**, síguela: este proyecto ya trae hechas sus fases 2–4 (tema, secciones, brief). Si no la tienes, sigue este documento.
 
 ## Qué hay en esta carpeta
-- `tema/` — tema Shopify 2.0 completo y propio (NO es Dawn). Secciones con prefijo `yn-`, todo editable desde el editor de Shopify. Ya lleva logo, favicon, colores, WhatsApp e Instagram.
-- `legal/` — textos legales ya redactados (términos de venta, envíos y devoluciones).
-- `marca.md` — marca, tono y decisiones tomadas con el cliente.
+- Raíz de la rama (`assets/`, `config/`, `layout/`, `locales/`, `sections/`, `snippets/`, `templates/`) — tema Shopify 2.0 completo y propio (NO es Dawn). Va en la raíz para poder conectar la rama desde Shopify con la integración de GitHub: no metas otras carpetas fuera de `extras/`. Secciones con prefijo `yn-`, todo editable desde el editor de Shopify. Ya lleva logo, favicon, colores, WhatsApp e Instagram.
+- `extras/legal/` — textos legales ya redactados (términos de venta, envíos y devoluciones).
+- `extras/marca.md` — marca, tono y decisiones tomadas con el cliente.
 - `ESTADO.md` — créalo y mantenlo al día (tienda, fases hechas, decisiones).
 
 ## Plan de trabajo (en orden, sin interrumpir al usuario salvo login)
@@ -23,7 +23,6 @@ Pide SOLO el enlace de la tienda (xxx.myshopify.com). Luego:
 
 ### 2. Validar y subir el tema (sin publicar)
 ```
-cd tema
 shopify theme check
 shopify theme push --unpublished --theme "YaEn3D" --store xxx.myshopify.com
 ```
@@ -34,8 +33,8 @@ Corrige cualquier error de `theme check` o de la subida (ojo: los ajustes `url` 
 2. **Etiqueta `personalizable`** en los productos que lleven nombre/texto: es lo que hace aparecer el campo "Nombre a imprimir" y la elección de color en la ficha.
 3. **Páginas**: crea "Encargos a medida" (handle `encargos`, templateSuffix `encargo`) y "Contacto" (handle `contacto`, templateSuffix `contact`).
 4. **Menús**: `main-menu` → Navidad · Llaveros · Decoración · Personalizados · Encargos a medida. `footer` → Todos los productos · Encargos · Contacto · Buscar.
-5. **Políticas** (`shopPolicyUpdate`): pega `legal/terminos-de-venta.md` en TERMS_OF_SERVICE y `legal/envios-y-devoluciones.md` en SHIPPING_POLICY y REFUND_POLICY (convertidos a HTML). Añade una PRIVACY_POLICY breve a partir del apartado 10 de los términos. **Faltan datos del titular** (nombre, NIF, domicilio): pídeselos en un único mensaje junto a lo de abajo.
-6. **Productos**: si hay productos, revisa título y descripción en el tono de la marca (ver `marca.md`). Si no hay, propón crear como borrador: Llavero con nombre, Bola calada LED (10 cm, con vela LED), y una figura navideña; sin inventar precios — pregúntalos.
+5. **Políticas** (`shopPolicyUpdate`): pega `extras/legal/terminos-de-venta.md` en TERMS_OF_SERVICE y `extras/legal/envios-y-devoluciones.md` en SHIPPING_POLICY y REFUND_POLICY (convertidos a HTML). Añade una PRIVACY_POLICY breve a partir del apartado 10 de los términos. **Faltan datos del titular** (nombre, NIF, domicilio): pídeselos en un único mensaje junto a lo de abajo.
+6. **Productos**: si hay productos, revisa título y descripción en el tono de la marca (ver `extras/marca.md`). Si no hay, propón crear como borrador: Llavero con nombre, Bola calada LED (10 cm, con vela LED), y una figura navideña; sin inventar precios — pregúntalos.
 7. **Envío** (no se puede desde el tema): explícale en 3 pasos cómo poner en Ajustes › Envío una tarifa de 4,95 € y otra gratis desde 40 €, solo península; y "Recogida en tienda" en Jaén si la quiere.
 
 ### 4. Mensaje único al usuario
