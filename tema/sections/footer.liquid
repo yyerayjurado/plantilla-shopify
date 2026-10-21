@@ -1,0 +1,76 @@
+<footer class="ftr">
+<div class="page ftr__grid">
+<div class="ftr__brand">
+<a href="{{ routes.root_url }}" class="ftr__logo" style="width:{{ settings.logo_width }}px">{%- if section.settings.logo_dark != blank -%}{{ section.settings.logo_dark | image_url: width: 600 | image_tag: alt: shop.name, loading: 'lazy' }}{%- else -%}<img src="{{ 'logo-yaen3d-oscuro.png' | asset_url }}" alt="{{ shop.name }}" width="600" height="313" loading="lazy">{%- endif -%}</a>
+{%- if section.settings.text != blank -%}<div class="ftr__text">{{ section.settings.text }}</div>{%- endif -%}
+</div>
+<div class="ftr__col"><p class="eyebrow">{{ section.settings.menu_title }}</p>{%- for link in section.settings.menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}</div>
+<div class="ftr__col"><p class="eyebrow">{{ section.settings.legal_title }}</p>{%- for policy in shop.policies -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endfor -%}{%- for link in section.settings.legal_menu.links -%}<a href="{{ link.url }}">{{ link.title }}</a>{%- endfor -%}</div>
+<div class="ftr__col"><p class="eyebrow">{{ section.settings.contact_title }}</p>
+{%- if settings.whatsapp != blank -%}<a href="https://wa.me/{{ settings.whatsapp | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener" class="ftr__ic">{% render 'icon', name: 'whatsapp' %} {{ settings.whatsapp }}</a>{%- endif -%}
+{%- if settings.instagram != blank -%}<a href="https://instagram.com/{{ settings.instagram | remove: '@' }}" target="_blank" rel="noopener" class="ftr__ic">{% render 'icon', name: 'instagram' %} @{{ settings.instagram | remove: '@' }}</a>{%- endif -%}
+{%- if section.settings.contact_extra != blank -%}<div class="ftr__text">{{ section.settings.contact_extra }}</div>{%- endif -%}
+</div>
+</div>
+<div class="page ftr__bottom"><span>© {{ 'now' | date: '%Y' }} {{ shop.name }}</span><span>{{ section.settings.bottom }}</span></div>
+</footer>
+{% schema %}
+{
+  "name": "Pie de página",
+  "class": "sec-footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo_dark",
+      "label": "Logo para fondo oscuro"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto de marca",
+      "default": "<p>Impresión 3D hecha en Jaén. Regalos personalizados, decoración y encargos a medida.</p>"
+    },
+    {
+      "type": "text",
+      "id": "menu_title",
+      "label": "Título menú",
+      "default": "Tienda"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menú",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "legal_title",
+      "label": "Título legal",
+      "default": "Información"
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "Enlaces extra (legal)"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Título contacto",
+      "default": "Contacto"
+    },
+    {
+      "type": "richtext",
+      "id": "contact_extra",
+      "label": "Texto contacto",
+      "default": "<p>Respondemos en el día por WhatsApp e Instagram.</p>"
+    },
+    {
+      "type": "text",
+      "id": "bottom",
+      "label": "Texto inferior",
+      "default": "Tu idea, ya en 3D."
+    }
+  ]
+}
+{% endschema %}

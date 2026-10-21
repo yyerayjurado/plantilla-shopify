@@ -1,0 +1,37 @@
+{%- if section.settings.text != blank -%}
+<div class="announce" style="background:{{ section.settings.bg }};color:{{ section.settings.fg }}">
+<div class="page announce__in">
+{%- if section.settings.link != blank -%}<a href="{{ section.settings.link }}">{{ section.settings.text }}</a>{%- else -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+</div></div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Barra de aviso",
+  "class": "sec-announce",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texto",
+      "default": "Envío gratis a partir de 40 € · Pedidos de Navidad hasta el 15 de diciembre"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Enlace"
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Fondo",
+      "default": "#132544"
+    },
+    {
+      "type": "color",
+      "id": "fg",
+      "label": "Texto",
+      "default": "#FFFFFF"
+    }
+  ]
+}
+{% endschema %}

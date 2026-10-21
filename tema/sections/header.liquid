@@ -1,0 +1,50 @@
+<header class="hdr{% if section.settings.sticky %} hdr--sticky{% endif %}" data-header>
+<div class="page hdr__in">
+<details class="mnav" data-mnav>
+<summary class="icon-btn" aria-label="Menú">{% render 'icon', name: 'menu' %}</summary>
+<div class="mnav__panel">
+<div class="mnav__top"><span class="eyebrow">Menú</span><button type="button" class="icon-btn" data-mnav-close aria-label="Cerrar">{% render 'icon', name: 'close' %}</button></div>
+<nav>{%- for link in section.settings.menu.links -%}<a href="{{ link.url }}" class="mnav__link">{{ link.title }}</a>{%- for c in link.links -%}<a href="{{ c.url }}" class="mnav__sub">{{ c.title }}</a>{%- endfor -%}{%- endfor -%}</nav>
+{%- if settings.instagram != blank -%}<a class="mnav__ig" href="https://instagram.com/{{ settings.instagram | remove: '@' }}" target="_blank" rel="noopener">{% render 'icon', name: 'instagram' %} @{{ settings.instagram | remove: '@' }}</a>{%- endif -%}
+</div>
+</details>
+<a href="{{ routes.root_url }}" class="hdr__logo" style="width:{{ settings.logo_width }}px">
+{%- if settings.logo != blank -%}{{ settings.logo | image_url: width: 600 | image_tag: alt: shop.name, loading: 'eager' }}{%- else -%}<img src="{{ 'logo-yaen3d.png' | asset_url }}" alt="{{ shop.name }}" width="600" height="313">{%- endif -%}
+</a>
+<nav class="hdr__nav" aria-label="Principal">
+{%- for link in section.settings.menu.links -%}
+{%- if link.links.size > 0 -%}
+<div class="dd"><a href="{{ link.url }}" class="hdr__link{% if link.active %} is-active{% endif %}">{{ link.title }}</a><div class="dd__panel">{%- for c in link.links -%}<a href="{{ c.url }}">{{ c.title }}</a>{%- endfor -%}</div></div>
+{%- else -%}<a href="{{ link.url }}" class="hdr__link{% if link.active %} is-active{% endif %}">{{ link.title }}</a>{%- endif -%}
+{%- endfor -%}
+</nav>
+<div class="hdr__icons">
+<a href="{{ routes.search_url }}" class="icon-btn" aria-label="Buscar">{% render 'icon', name: 'search' %}</a>
+<a href="{{ routes.cart_url }}" class="icon-btn hdr__cart" aria-label="Cesta">{% render 'icon', name: 'cart' %}{%- if cart.item_count > 0 -%}<span class="hdr__count">{{ cart.item_count }}</span>{%- endif -%}</a>
+</div>
+</div>
+</header>
+{% schema %}
+{
+  "name": "Cabecera",
+  "class": "sec-header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menú",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Fija al hacer scroll",
+      "default": true
+    },
+    {
+      "type": "paragraph",
+      "content": "El logo y su tamaño se cambian en Configuración del tema › Marca."
+    }
+  ]
+}
+{% endschema %}

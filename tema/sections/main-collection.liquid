@@ -1,0 +1,105 @@
+<style>#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top | times: 0.6 | round }}px;padding-bottom:{{ section.settings.padding_bottom | times: 0.6 | round }}px}@media(min-width:750px){#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px}}</style>
+<div class="page">
+<div class="coll-head"><p class="eyebrow">{{ section.settings.eyebrow }}</p><h1 class="h1" style="--hs:{{ section.settings.heading_size }}px">{{ collection.title }}</h1>{%- if collection.description != blank and section.settings.show_desc -%}<div class="sub rte">{{ collection.description }}</div>{%- endif -%}</div>
+{%- paginate collection.products by section.settings.per_page -%}
+<div class="toolbar"><span class="mono">{{ collection.products_count }} productos</span>
+<label class="sort"><span>Ordenar</span><select data-sort>{%- assign sb = collection.sort_by | default: collection.default_sort_by -%}{%- for o in collection.sort_options -%}<option value="{{ o.value }}"{% if o.value == sb %} selected{% endif %}>{{ o.name }}</option>{%- endfor -%}</select></label></div>
+<div class="grid grid--{{ section.settings.cols }}">{%- for product in collection.products -%}{% render 'product-card', product: product, ratio: section.settings.ratio %}{%- else -%}<p>Todavía no hay productos en esta colección.</p>{%- endfor -%}</div>
+{%- if paginate.pages > 1 -%}<nav class="pager">{{ paginate | default_pagination: next: 'Siguiente →', previous: '← Anterior' }}</nav>{%- endif -%}
+{%- endpaginate -%}
+</div>
+{% schema %}
+{
+  "name": "Colección",
+  "class": "sec-coll",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Antetítulo",
+      "default": "Colección"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "checkbox",
+      "id": "show_desc",
+      "label": "Mostrar descripción",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "per_page",
+      "label": "Productos por página",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "cols",
+      "label": "Columnas",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Proporción foto",
+      "options": [
+        {
+          "value": "4/5",
+          "label": "Vertical"
+        },
+        {
+          "value": "1/1",
+          "label": "Cuadrada"
+        }
+      ],
+      "default": "4/5"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Margen arriba",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Margen abajo",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    }
+  ]
+}
+{% endschema %}

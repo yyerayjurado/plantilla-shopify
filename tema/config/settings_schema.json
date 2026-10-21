@@ -1,0 +1,192 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "YaEn3D",
+    "theme_version": "1.0.0",
+    "theme_author": "YaEn3D",
+    "theme_documentation_url": "https://help.shopify.com/es/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com/es"
+  },
+  {
+    "name": "Marca",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo (fondo claro)"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Ancho del logo",
+        "min": 80,
+        "max": 260,
+        "step": 10,
+        "unit": "px",
+        "default": 140
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Icono de pestaña (favicon)"
+      }
+    ]
+  },
+  {
+    "name": "Colores",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_navy",
+        "label": "Marino (principal)",
+        "default": "#132544"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Celeste (acento)",
+        "default": "#4CC3FF"
+      },
+      {
+        "type": "color",
+        "id": "color_red",
+        "label": "Rojo (ofertas y Navidad)",
+        "default": "#B3192B"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Fondo",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_soft",
+        "label": "Fondo suave",
+        "default": "#F4F3F0"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Texto",
+        "default": "#132544"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Texto secundario",
+        "default": "#55607A"
+      },
+      {
+        "type": "color",
+        "id": "color_line",
+        "label": "Líneas",
+        "default": "#E2E5EB"
+      }
+    ]
+  },
+  {
+    "name": "Tipografía y forma",
+    "settings": [
+      {
+        "type": "range",
+        "id": "heading_weight",
+        "label": "Grosor de títulos",
+        "min": 500,
+        "max": 900,
+        "step": 100,
+        "default": 700
+      },
+      {
+        "type": "range",
+        "id": "heading_width",
+        "label": "Anchura de títulos",
+        "min": 75,
+        "max": 125,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "radius",
+        "label": "Redondeo de fotos",
+        "min": 0,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "btn_radius",
+        "label": "Redondeo de botones",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Ancho máximo de página",
+        "min": 1000,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "default": 1320
+      }
+    ]
+  },
+  {
+    "name": "Contacto",
+    "settings": [
+      {
+        "type": "text",
+        "id": "whatsapp",
+        "label": "WhatsApp (con prefijo)",
+        "default": "+34625906339"
+      },
+      {
+        "type": "checkbox",
+        "id": "whatsapp_float",
+        "label": "Botón flotante de WhatsApp",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_label",
+        "label": "Texto del botón flotante",
+        "default": "¿Dudas?"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_msg",
+        "label": "Mensaje inicial",
+        "default": "Hola YaEn3D, quería preguntaros por"
+      },
+      {
+        "type": "text",
+        "id": "instagram",
+        "label": "Usuario de Instagram",
+        "default": "yaen3d"
+      }
+    ]
+  },
+  {
+    "name": "Envío",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_shipping",
+        "label": "Envío gratis a partir de (€). 0 = ocultar barra",
+        "default": 40
+      },
+      {
+        "type": "paragraph",
+        "content": "El precio real del envío se configura en Ajustes › Envío y entrega. Este número solo controla la barra de la cesta."
+      }
+    ]
+  }
+]

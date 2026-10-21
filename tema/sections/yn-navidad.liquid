@@ -1,0 +1,130 @@
+<style>#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top | times: 0.6 | round }}px;padding-bottom:{{ section.settings.padding_bottom | times: 0.6 | round }}px}@media(min-width:750px){#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px}}</style>
+<div class="page">
+<div class="xmas reveal" style="background:{{ section.settings.bg }};color:{{ section.settings.fg }}" data-countdown="{{ section.settings.deadline }}">
+<div class="xmas__text">
+<p class="eyebrow" style="color:inherit;opacity:.8">{{ section.settings.eyebrow }}</p>
+<h2 class="h2" style="--hs:{{ section.settings.heading_size }}px;color:inherit">{{ section.settings.heading }}</h2>
+{%- if section.settings.text != blank -%}<div class="xmas__p">{{ section.settings.text }}</div>{%- endif -%}
+{%- if section.settings.btn != blank -%}<a href="{{ section.settings.btn_link | default: routes.all_products_collection_url }}" class="btn btn--light">{{ section.settings.btn }}</a>{%- endif -%}
+</div>
+{%- if section.settings.show_count -%}
+<div class="xmas__count" aria-live="polite"><span class="xmas__n mono" data-days>—</span><span class="xmas__l">{{ section.settings.count_label }}</span><span class="xmas__end mono" data-ended hidden>{{ section.settings.ended }}</span></div>
+{%- endif -%}
+</div>
+</div>
+{% schema %}
+{
+  "name": "Aviso Navidad",
+  "class": "sec-xmas",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Bloque de temporada. Cuando acabe la Navidad, ocúltalo con el ojo o bórralo."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Antetítulo",
+      "default": "Fecha límite"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Pide antes del 15 de diciembre y llega para Navidad."
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 24,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto",
+      "default": "<p>Cada pieza se fabrica en 3–5 días. Envío 4,95 €, gratis desde 40 €.</p>"
+    },
+    {
+      "type": "text",
+      "id": "btn",
+      "label": "Botón",
+      "default": "Ver regalos de Navidad"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Enlace botón"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_count",
+      "label": "Mostrar cuenta atrás",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "deadline",
+      "label": "Fecha límite (AAAA-MM-DD)",
+      "default": "2026-12-15"
+    },
+    {
+      "type": "text",
+      "id": "count_label",
+      "label": "Texto cuenta atrás",
+      "default": "días para pedir"
+    },
+    {
+      "type": "text",
+      "id": "ended",
+      "label": "Texto cuando pasa la fecha",
+      "default": "Pedidos de Navidad cerrados"
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Fondo",
+      "default": "#B3192B"
+    },
+    {
+      "type": "color",
+      "id": "fg",
+      "label": "Texto",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Margen arriba",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Margen abajo",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aviso Navidad"
+    }
+  ]
+}
+{% endschema %}

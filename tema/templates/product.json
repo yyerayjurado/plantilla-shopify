@@ -1,0 +1,127 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "e": {
+          "type": "eyebrow",
+          "settings": {}
+        },
+        "t": {
+          "type": "title",
+          "settings": {}
+        },
+        "p": {
+          "type": "price",
+          "settings": {}
+        },
+        "v": {
+          "type": "variants",
+          "settings": {}
+        },
+        "n": {
+          "type": "personalizacion",
+          "settings": {}
+        },
+        "c": {
+          "type": "eleccion",
+          "settings": {}
+        },
+        "b": {
+          "type": "buy",
+          "settings": {}
+        },
+        "w": {
+          "type": "envio",
+          "settings": {}
+        },
+        "d": {
+          "type": "descripcion",
+          "settings": {}
+        },
+        "x1": {
+          "type": "desplegable",
+          "settings": {
+            "title": "Envío y plazos",
+            "text": "<p>Fabricamos en 3–5 días. Envío 4,95 €, gratis a partir de 40 €. Pedidos de Navidad hasta el 15 de diciembre.</p>"
+          }
+        },
+        "x2": {
+          "type": "desplegable",
+          "settings": {
+            "title": "Material y cuidados",
+            "text": "<p>Impreso en PLA. Límpialo con un paño seco y evita fuentes de calor y el sol directo en el coche.</p>"
+          }
+        },
+        "wa": {
+          "type": "whatsapp",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "e",
+        "t",
+        "p",
+        "v",
+        "n",
+        "c",
+        "b",
+        "w",
+        "d",
+        "x1",
+        "x2",
+        "wa"
+      ],
+      "settings": {}
+    },
+    "como": {
+      "type": "yn-como-funciona",
+      "blocks": {
+        "p1": {
+          "type": "paso",
+          "settings": {
+            "title": "Lo personalizas",
+            "text": "<p>Escribe el nombre o texto y elige color antes de añadir a la cesta.</p>"
+          }
+        },
+        "p2": {
+          "type": "paso",
+          "settings": {
+            "title": "Lo imprimimos",
+            "text": "<p>Se fabrica en 3–5 días en nuestro taller de Jaén.</p>"
+          }
+        },
+        "p3": {
+          "type": "paso",
+          "settings": {
+            "title": "Te llega a casa",
+            "text": "<p>Envío 4,95 €, gratis a partir de 40 €.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "fondo": "suave",
+        "heading": "Así lo hacemos",
+        "heading_size": 36
+      }
+    },
+    "mas": {
+      "type": "yn-productos",
+      "settings": {
+        "heading": "También te puede gustar",
+        "eyebrow": "Más regalos",
+        "heading_size": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "como",
+    "mas"
+  ]
+}

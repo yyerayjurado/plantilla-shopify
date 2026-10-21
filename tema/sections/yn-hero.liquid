@@ -1,0 +1,222 @@
+<style>#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top | times: 0.6 | round }}px;padding-bottom:{{ section.settings.padding_bottom | times: 0.6 | round }}px}@media(min-width:750px){#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px}}</style>
+<style>#shopify-section-{{ section.id }}{background:{% case section.settings.fondo %}{% when "suave" %}var(--soft){% when "marino" %}var(--navy);color:#fff{% else %}var(--bg){% endcase %}}</style>
+{%- if section.settings.fondo == "marino" -%}<i class="on-dark" hidden></i>{%- endif -%}
+<div class="page hero hero--{{ section.settings.layout }}">
+<div class="hero__text reveal">
+{%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+<h1 class="h1" style="--hs:{{ section.settings.heading_size }}px">{{ section.settings.heading }}</h1>
+{%- if section.settings.text != blank -%}<div class="hero__sub">{{ section.settings.text }}</div>{%- endif -%}
+<div class="btns">
+{%- if section.settings.btn1 != blank -%}<a href="{{ section.settings.btn1_link | default: routes.all_products_collection_url }}" class="btn">{{ section.settings.btn1 }}</a>{%- endif -%}
+{%- if section.settings.btn2 != blank -%}<a href="{{ section.settings.btn2_link | default: '/pages/encargos' }}" class="btn btn--ghost">{{ section.settings.btn2 }}</a>{%- endif -%}
+</div>
+{%- if section.blocks.size > 0 -%}<ul class="hero__facts">{%- for block in section.blocks -%}<li {{ block.shopify_attributes }}><span class="mono">{{ block.settings.value }}</span>{{ block.settings.label }}</li>{%- endfor -%}</ul>{%- endif -%}
+</div>
+<div class="hero__media reveal" style="aspect-ratio:{{ section.settings.ratio }}">
+{%- if section.settings.image != blank -%}{{ section.settings.image | image_url: width: 1800 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '600,900,1200,1500,1800', sizes: '(min-width: 990px) 50vw, 100vw' }}{%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}{%- endif -%}
+{%- if section.settings.tag != blank -%}<span class="hero__tag mono">{{ section.settings.tag }}</span>{%- endif -%}
+</div>
+</div>
+{% schema %}
+{
+  "name": "Portada principal",
+  "class": "sec-hero",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Disposición",
+      "options": [
+        {
+          "value": "split",
+          "label": "Texto + imagen"
+        },
+        {
+          "value": "split-rev",
+          "label": "Imagen + texto"
+        },
+        {
+          "value": "stack",
+          "label": "Texto arriba, imagen ancha"
+        }
+      ],
+      "default": "split"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen"
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Proporción imagen",
+      "options": [
+        {
+          "value": "4/5",
+          "label": "Vertical"
+        },
+        {
+          "value": "1/1",
+          "label": "Cuadrada"
+        },
+        {
+          "value": "16/10",
+          "label": "Horizontal"
+        }
+      ],
+      "default": "4/5"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Etiqueta sobre la imagen",
+      "default": "PLA · hecho en Jaén"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Antetítulo",
+      "default": "Navidad 2026"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Título",
+      "default": "Regalos que no se compran en cualquier sitio."
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 32,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto",
+      "default": "<p>Llaveros con su nombre, bolas de luz, figuras y lo que se te ocurra. Lo diseñamos e imprimimos en 3D, y te lo mandamos a casa.</p>"
+    },
+    {
+      "type": "text",
+      "id": "btn1",
+      "label": "Botón 1",
+      "default": "Ver regalos"
+    },
+    {
+      "type": "url",
+      "id": "btn1_link",
+      "label": "Enlace botón 1"
+    },
+    {
+      "type": "text",
+      "id": "btn2",
+      "label": "Botón 2",
+      "default": "Encargar a medida"
+    },
+    {
+      "type": "url",
+      "id": "btn2_link",
+      "label": "Enlace botón 2"
+    },
+    {
+      "type": "select",
+      "id": "fondo",
+      "label": "Fondo",
+      "options": [
+        {
+          "value": "blanco",
+          "label": "Blanco"
+        },
+        {
+          "value": "suave",
+          "label": "Gris suave"
+        },
+        {
+          "value": "marino",
+          "label": "Marino"
+        }
+      ],
+      "default": "blanco"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Margen arriba",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Margen abajo",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "dato",
+      "name": "Dato",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Valor",
+          "default": "3–5 días"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto",
+          "default": "de fabricación"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Portada principal",
+      "blocks": [
+        {
+          "type": "dato",
+          "settings": {
+            "value": "3–5 días",
+            "label": "de fabricación"
+          }
+        },
+        {
+          "type": "dato",
+          "settings": {
+            "value": "+40 €",
+            "label": "envío gratis"
+          }
+        },
+        {
+          "type": "dato",
+          "settings": {
+            "value": "Tu nombre",
+            "label": "en cada pieza"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,171 @@
+<style>#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top | times: 0.6 | round }}px;padding-bottom:{{ section.settings.padding_bottom | times: 0.6 | round }}px}@media(min-width:750px){#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px}}</style>
+<style>#shopify-section-{{ section.id }}{background:{% case section.settings.fondo %}{% when "suave" %}var(--soft){% when "marino" %}var(--navy);color:#fff{% else %}var(--bg){% endcase %}}</style>
+{%- if section.settings.fondo == "marino" -%}<i class="on-dark" hidden></i>{%- endif -%}
+<div class="page faq"><div class="sec-head" style="text-align:{{ section.settings.alineacion }}">{% if section.settings.eyebrow != blank %}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{% endif %}{% if section.settings.heading != blank %}<h2 class="h2" style="--hs:{{ section.settings.heading_size }}px">{{ section.settings.heading }}</h2>{% endif %}{% if section.settings.subheading != blank %}<p class="sub">{{ section.settings.subheading }}</p>{% endif %}</div>
+<div class="faq__list">{%- for block in section.blocks -%}<details class="qa" {{ block.shopify_attributes }}{% if forloop.first and section.settings.open_first %} open{% endif %}><summary>{{ block.settings.q }}{% render 'icon', name: 'plus' %}</summary><div class="qa__a">{{ block.settings.a }}</div></details>{%- endfor -%}</div>
+</div>
+{% schema %}
+{
+  "name": "Preguntas frecuentes",
+  "class": "sec-faq",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Antetítulo",
+      "default": "Dudas"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Preguntas frecuentes"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "select",
+      "id": "alineacion",
+      "label": "Alineación del título",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "Primera abierta",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "fondo",
+      "label": "Fondo",
+      "options": [
+        {
+          "value": "blanco",
+          "label": "Blanco"
+        },
+        {
+          "value": "suave",
+          "label": "Gris suave"
+        },
+        {
+          "value": "marino",
+          "label": "Marino"
+        }
+      ],
+      "default": "blanco"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Margen arriba",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Margen abajo",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pregunta",
+      "name": "Pregunta",
+      "settings": [
+        {
+          "type": "text",
+          "id": "q",
+          "label": "Pregunta",
+          "default": "Pregunta"
+        },
+        {
+          "type": "richtext",
+          "id": "a",
+          "label": "Respuesta",
+          "default": "<p>Respuesta.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Preguntas frecuentes",
+      "blocks": [
+        {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿Cuánto tarda mi pedido?",
+            "a": "<p>Lo fabricamos en 3–5 días y después sale el envío. Para Navidad, pide antes del 15 de diciembre.</p>"
+          }
+        },
+        {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿Cuánto cuesta el envío?",
+            "a": "<p>4,95 € a toda la península. A partir de 40 € es gratis.</p>"
+          }
+        },
+        {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿Cómo pongo un nombre o un texto?",
+            "a": "<p>En los productos personalizables verás un campo para escribirlo antes de añadir a la cesta. Revisa bien la ortografía: lo imprimimos tal cual.</p>"
+          }
+        },
+        {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿Hacéis piezas a medida?",
+            "a": "<p>Sí. Rellena el formulario de encargo o escríbenos por WhatsApp y te damos precio y plazo sin compromiso.</p>"
+          }
+        },
+        {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿De qué material son?",
+            "a": "<p>Imprimimos en PLA, un plástico de origen vegetal. Es resistente para uso diario; evita dejarlo al sol dentro del coche o cerca de una fuente de calor.</p>"
+          }
+        },
+        {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿Puedo devolver un producto personalizado?",
+            "a": "<p>Los productos hechos con tu nombre o a medida no admiten devolución, salvo que lleguen con un defecto. Consulta la política de devoluciones.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

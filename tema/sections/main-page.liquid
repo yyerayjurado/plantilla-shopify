@@ -1,0 +1,43 @@
+<style>#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top | times: 0.6 | round }}px;padding-bottom:{{ section.settings.padding_bottom | times: 0.6 | round }}px}@media(min-width:750px){#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px}}</style>
+<div class="page page--narrow"><h1 class="h1" style="--hs:{{ section.settings.heading_size }}px">{{ page.title }}</h1><div class="rte">{{ page.content }}</div></div>
+{% schema %}
+{
+  "name": "Página",
+  "settings": [
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Margen arriba",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Margen abajo",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 48
+    }
+  ]
+}
+{% endschema %}

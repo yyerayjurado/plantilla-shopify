@@ -1,0 +1,35 @@
+<style>#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top | times: 0.6 | round }}px;padding-bottom:{{ section.settings.padding_bottom | times: 0.6 | round }}px}@media(min-width:750px){#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px}}</style>
+<div class="page"><div class="coll-head"><h1 class="h1" style="--hs:48px">{{ blog.title }}</h1></div>
+{%- paginate blog.articles by 12 -%}<div class="grid grid--3">{%- for article in blog.articles -%}<a class="card reveal" href="{{ article.url }}"><div class="card__media" style="aspect-ratio:3/2">{%- if article.image -%}{{ article.image | image_url: width: 900 | image_tag: loading: 'lazy' }}{%- else -%}{{ 'image' | placeholder_svg_tag: 'placeholder' }}{%- endif -%}</div><div class="card__info"><span class="mono">{{ article.published_at | date: '%d/%m/%Y' }}</span><h3 class="card__title">{{ article.title }}</h3></div></a>{%- endfor -%}</div>
+{%- if paginate.pages > 1 -%}<nav class="pager">{{ paginate | default_pagination }}</nav>{%- endif -%}{%- endpaginate -%}</div>
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Margen arriba",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Margen abajo",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,259 @@
+{
+  "sections": {
+    "hero": {
+      "type": "yn-hero",
+      "blocks": {
+        "d1": {
+          "type": "dato",
+          "settings": {
+            "value": "3–5 días",
+            "label": "de fabricación"
+          }
+        },
+        "d2": {
+          "type": "dato",
+          "settings": {
+            "value": "+40 €",
+            "label": "envío gratis"
+          }
+        },
+        "d3": {
+          "type": "dato",
+          "settings": {
+            "value": "Tu nombre",
+            "label": "en cada pieza"
+          }
+        }
+      },
+      "block_order": [
+        "d1",
+        "d2",
+        "d3"
+      ],
+      "settings": {}
+    },
+    "navidad": {
+      "type": "yn-navidad",
+      "settings": {}
+    },
+    "productos": {
+      "type": "yn-productos",
+      "settings": {}
+    },
+    "categorias": {
+      "type": "yn-colecciones",
+      "blocks": {
+        "c1": {
+          "type": "categoria",
+          "settings": {
+            "title": "Navidad"
+          }
+        },
+        "c2": {
+          "type": "categoria",
+          "settings": {
+            "title": "Llaveros con nombre"
+          }
+        },
+        "c3": {
+          "type": "categoria",
+          "settings": {
+            "title": "Decoración y figuras"
+          }
+        },
+        "c4": {
+          "type": "categoria",
+          "settings": {
+            "title": "Encargos a medida",
+            "link": "/pages/encargos"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "fondo": "suave"
+      }
+    },
+    "como": {
+      "type": "yn-como-funciona",
+      "blocks": {
+        "p1": {
+          "type": "paso",
+          "settings": {
+            "title": "Eliges o nos cuentas",
+            "text": "<p>Escoge un diseño de la tienda o mándanos tu idea. Si lleva nombre, lo escribes al comprar.</p>"
+          }
+        },
+        "p2": {
+          "type": "paso",
+          "settings": {
+            "title": "Lo imprimimos",
+            "text": "<p>Lo fabricamos en PLA en 3–5 días. Si es a medida, antes te enseñamos el diseño.</p>"
+          }
+        },
+        "p3": {
+          "type": "paso",
+          "settings": {
+            "title": "Te llega a casa",
+            "text": "<p>Envío 4,95 €, gratis a partir de 40 €. Te avisamos cuando sale.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {}
+    },
+    "encargo": {
+      "type": "yn-encargo",
+      "settings": {
+        "fondo": "marino"
+      }
+    },
+    "opiniones": {
+      "type": "yn-opiniones",
+      "disabled": true,
+      "blocks": {
+        "o1": {
+          "type": "opinion",
+          "settings": {}
+        },
+        "o2": {
+          "type": "opinion",
+          "settings": {}
+        },
+        "o3": {
+          "type": "opinion",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "o1",
+        "o2",
+        "o3"
+      ],
+      "settings": {}
+    },
+    "sobre": {
+      "type": "yn-sobre",
+      "settings": {
+        "fondo": "suave"
+      }
+    },
+    "galeria": {
+      "type": "yn-galeria",
+      "blocks": {
+        "g1": {
+          "type": "foto",
+          "settings": {}
+        },
+        "g2": {
+          "type": "foto",
+          "settings": {}
+        },
+        "g3": {
+          "type": "foto",
+          "settings": {}
+        },
+        "g4": {
+          "type": "foto",
+          "settings": {}
+        },
+        "g5": {
+          "type": "foto",
+          "settings": {}
+        },
+        "g6": {
+          "type": "foto",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5",
+        "g6"
+      ],
+      "settings": {}
+    },
+    "faq": {
+      "type": "yn-faq",
+      "blocks": {
+        "q1": {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿Cuánto tarda mi pedido?",
+            "a": "<p>Lo fabricamos en 3–5 días y después sale el envío. Para Navidad, pide antes del 15 de diciembre.</p>"
+          }
+        },
+        "q2": {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿Cuánto cuesta el envío?",
+            "a": "<p>4,95 €. A partir de 40 € es gratis.</p>"
+          }
+        },
+        "q3": {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿Cómo pongo un nombre o un texto?",
+            "a": "<p>En los productos personalizables verás un campo para escribirlo antes de añadir a la cesta. Revisa bien la ortografía: lo imprimimos tal cual.</p>"
+          }
+        },
+        "q4": {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿Hacéis piezas a medida?",
+            "a": "<p>Sí. Rellena el formulario de encargo o escríbenos por WhatsApp y te damos precio y plazo sin compromiso.</p>"
+          }
+        },
+        "q5": {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿De qué material son?",
+            "a": "<p>Imprimimos en PLA, un plástico de origen vegetal. Evita dejarlo al sol dentro del coche o cerca de una fuente de calor.</p>"
+          }
+        },
+        "q6": {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿Puedo devolver un producto personalizado?",
+            "a": "<p>Los productos hechos con tu nombre o a medida no admiten devolución, salvo que lleguen con un defecto. Consulta la política de devoluciones.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "alineacion": "left"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "navidad",
+    "productos",
+    "categorias",
+    "como",
+    "encargo",
+    "opiniones",
+    "sobre",
+    "galeria",
+    "faq"
+  ]
+}

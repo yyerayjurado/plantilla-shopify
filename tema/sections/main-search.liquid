@@ -1,0 +1,43 @@
+<style>#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top | times: 0.6 | round }}px;padding-bottom:{{ section.settings.padding_bottom | times: 0.6 | round }}px}@media(min-width:750px){#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px}}</style>
+<div class="page">
+<div class="coll-head"><h1 class="h1" style="--hs:44px">Buscar</h1>
+<form action="{{ routes.search_url }}" method="get" class="search"><input type="search" name="q" value="{{ search.terms | escape }}" placeholder="¿Qué buscas?" aria-label="Buscar"><input type="hidden" name="options[prefix]" value="last"><button class="btn" type="submit">Buscar</button></form></div>
+{%- if search.performed -%}
+{%- paginate search.results by 24 -%}
+<p class="mono toolbar">{{ search.results_count }} resultados para “{{ search.terms }}”</p>
+<div class="grid grid--4">{%- for item in search.results -%}{%- if item.object_type == 'product' -%}{% render 'product-card', product: item %}{%- else -%}<a class="card card--text" href="{{ item.url }}"><span class="eyebrow">{{ item.object_type }}</span><h3 class="card__title">{{ item.title }}</h3></a>{%- endif -%}{%- endfor -%}</div>
+{%- if paginate.pages > 1 -%}<nav class="pager">{{ paginate | default_pagination: next: 'Siguiente →', previous: '← Anterior' }}</nav>{%- endif -%}
+{%- endpaginate -%}
+{%- endif -%}
+</div>
+{% schema %}
+{
+  "name": "Búsqueda",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Margen arriba",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Margen abajo",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    }
+  ]
+}
+{% endschema %}

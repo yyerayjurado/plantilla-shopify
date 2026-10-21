@@ -1,0 +1,141 @@
+<style>#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top | times: 0.6 | round }}px;padding-bottom:{{ section.settings.padding_bottom | times: 0.6 | round }}px}@media(min-width:750px){#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px}}</style>
+<style>#shopify-section-{{ section.id }}{background:{% case section.settings.fondo %}{% when "suave" %}var(--soft){% when "marino" %}var(--navy);color:#fff{% else %}var(--bg){% endcase %}}</style>
+{%- if section.settings.fondo == "marino" -%}<i class="on-dark" hidden></i>{%- endif -%}
+<div class="page about about--{{ section.settings.layout }}">
+<div class="about__media reveal">{%- if section.settings.image != blank -%}{{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '500,800,1100,1400', sizes: '(min-width: 990px) 50vw, 100vw' }}{%- else -%}{{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder' }}{%- endif -%}</div>
+<div class="about__text reveal"><div class="sec-head" style="text-align:{{ section.settings.alineacion }}">{% if section.settings.eyebrow != blank %}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{% endif %}{% if section.settings.heading != blank %}<h2 class="h2" style="--hs:{{ section.settings.heading_size }}px">{{ section.settings.heading }}</h2>{% endif %}{% if section.settings.subheading != blank %}<p class="sub">{{ section.settings.subheading }}</p>{% endif %}</div><div class="rte">{{ section.settings.text }}</div>
+{%- if section.settings.btn != blank -%}<a class="link-arrow" href="{{ section.settings.btn_link | default: '/pages/encargos' }}">{{ section.settings.btn }} {% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+</div></div>
+{% schema %}
+{
+  "name": "Sobre nosotros",
+  "class": "sec-about",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen (taller, impresora, tú)"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Disposición",
+      "options": [
+        {
+          "value": "img-left",
+          "label": "Imagen a la izquierda"
+        },
+        {
+          "value": "img-right",
+          "label": "Imagen a la derecha"
+        }
+      ],
+      "default": "img-left"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Antetítulo",
+      "default": "Desde Jaén"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Un taller pequeño con impresoras que no paran."
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "select",
+      "id": "alineacion",
+      "label": "Alineación del título",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto",
+      "default": "<p>YaEn3D nace en Jaén con una idea sencilla: que cualquier cosa que imagines se pueda tener en la mano. Diseñamos e imprimimos cada pieza nosotros, una a una, y cuidamos los detalles como si fuera para casa.</p>"
+    },
+    {
+      "type": "text",
+      "id": "btn",
+      "label": "Enlace",
+      "default": "Cuéntanos tu idea"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Destino"
+    },
+    {
+      "type": "select",
+      "id": "fondo",
+      "label": "Fondo",
+      "options": [
+        {
+          "value": "blanco",
+          "label": "Blanco"
+        },
+        {
+          "value": "suave",
+          "label": "Gris suave"
+        },
+        {
+          "value": "marino",
+          "label": "Marino"
+        }
+      ],
+      "default": "blanco"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Margen arriba",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Margen abajo",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sobre nosotros"
+    }
+  ]
+}
+{% endschema %}

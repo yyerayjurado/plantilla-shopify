@@ -1,0 +1,101 @@
+<style>#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top | times: 0.6 | round }}px;padding-bottom:{{ section.settings.padding_bottom | times: 0.6 | round }}px}@media(min-width:750px){#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px}}</style>
+{%- assign th = settings.free_shipping | times: 100 -%}
+<div class="page cart">
+<h1 class="h1" style="--hs:44px">{{ section.settings.heading }}</h1>
+{%- if cart.item_count > 0 -%}
+{%- if th > 0 -%}{%- assign left = th | minus: cart.total_price -%}{%- assign pct = cart.total_price | times: 100 | divided_by: th -%}{%- if pct > 100 -%}{%- assign pct = 100 -%}{%- endif -%}
+<div class="ship"><p>{%- if left > 0 -%}Te faltan <strong>{{ left | money }}</strong> para el envío gratis.{%- else -%}<strong>Tienes envío gratis.</strong>{%- endif -%}</p><div class="ship__bar"><span style="width:{{ pct }}%"></span></div></div>
+{%- endif -%}
+<form action="{{ routes.cart_url }}" method="post" class="cart__grid">
+<div class="cart__items">
+{%- for item in cart.items -%}
+<div class="line">
+<a href="{{ item.url }}" class="line__img">{%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: loading: 'lazy' }}{%- endif -%}</a>
+<div class="line__info"><a href="{{ item.url }}" class="line__t">{{ item.product.title }}</a>
+{%- unless item.product.has_only_default_variant -%}<span class="line__m">{{ item.variant.title }}</span>{%- endunless -%}
+{%- for p in item.properties -%}{%- unless p.last == blank or p.first contains '_' -%}<span class="line__m">{{ p.first }}: <strong>{{ p.last }}</strong></span>{%- endunless -%}{%- endfor -%}
+<div class="line__row"><div class="qty qty--sm"><button type="button" data-qty="-1" aria-label="Menos">−</button><input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Cantidad" data-autosubmit><button type="button" data-qty="1" aria-label="Más">+</button></div><a href="{{ item.url_to_remove }}" class="line__rm">Quitar</a></div>
+</div>
+<div class="line__p">{{ item.final_line_price | money }}</div>
+</div>
+{%- endfor -%}
+</div>
+<aside class="cart__sum">
+<label class="fld"><span>{{ section.settings.note_label }}</span><textarea name="note" rows="3" placeholder="{{ section.settings.note_ph }}">{{ cart.note }}</textarea></label>
+<div class="sum__row"><span>Subtotal</span><strong>{{ cart.total_price | money }}</strong></div>
+<p class="fld__hint">{{ section.settings.tax_note }}</p>
+<button type="submit" name="checkout" class="btn btn--full">{{ section.settings.checkout }}</button>
+<noscript><button type="submit" name="update" class="btn btn--ghost btn--full">Actualizar</button></noscript>
+</aside>
+</form>
+{%- else -%}
+<div class="empty"><p class="sub">{{ section.settings.empty }}</p><a href="{{ routes.all_products_collection_url }}" class="btn">Ver productos</a></div>
+{%- endif -%}
+</div>
+{% schema %}
+{
+  "name": "Cesta",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Tu cesta"
+    },
+    {
+      "type": "text",
+      "id": "note_label",
+      "label": "Etiqueta de nota",
+      "default": "¿Algo que debamos saber?"
+    },
+    {
+      "type": "text",
+      "id": "note_ph",
+      "label": "Ejemplo de nota",
+      "default": "Ej. es un regalo, no incluyáis el precio"
+    },
+    {
+      "type": "text",
+      "id": "tax_note",
+      "label": "Nota de impuestos",
+      "default": "Impuestos incluidos. El envío se calcula en el pago."
+    },
+    {
+      "type": "text",
+      "id": "checkout",
+      "label": "Botón pagar",
+      "default": "Tramitar pedido"
+    },
+    {
+      "type": "text",
+      "id": "empty",
+      "label": "Texto cesta vacía",
+      "default": "Tu cesta está vacía."
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Margen arriba",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Margen abajo",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 80
+    }
+  ]
+}
+{% endschema %}

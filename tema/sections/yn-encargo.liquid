@@ -1,0 +1,175 @@
+<style>#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top | times: 0.6 | round }}px;padding-bottom:{{ section.settings.padding_bottom | times: 0.6 | round }}px}@media(min-width:750px){#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px}}</style>
+<style>#shopify-section-{{ section.id }}{background:{% case section.settings.fondo %}{% when "suave" %}var(--soft){% when "marino" %}var(--navy);color:#fff{% else %}var(--bg){% endcase %}}</style>
+{%- if section.settings.fondo == "marino" -%}<i class="on-dark" hidden></i>{%- endif -%}
+<div class="page enc">
+<div class="enc__intro"><div class="sec-head" style="text-align:{{ section.settings.alineacion }}">{% if section.settings.eyebrow != blank %}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{% endif %}{% if section.settings.heading != blank %}<h2 class="h2" style="--hs:{{ section.settings.heading_size }}px">{{ section.settings.heading }}</h2>{% endif %}{% if section.settings.subheading != blank %}<p class="sub">{{ section.settings.subheading }}</p>{% endif %}</div>
+{%- if section.settings.text != blank -%}<div class="enc__p">{{ section.settings.text }}</div>{%- endif -%}
+{%- if settings.whatsapp != blank -%}
+<div class="enc__wa"><p class="mono">{{ section.settings.wa_title }}</p><a class="btn btn--ghost" target="_blank" rel="noopener" href="https://wa.me/{{ settings.whatsapp | remove: '+' | remove: ' ' }}?text={{ section.settings.wa_msg | url_encode }}">{% render 'icon', name: 'whatsapp' %} {{ section.settings.wa_btn }}</a></div>
+{%- endif -%}
+</div>
+{%- form 'contact', id: 'encargo-form', class: 'enc__form' -%}
+{%- if form.posted_successfully? -%}<div class="note note--ok">{{ section.settings.ok }}</div>{%- endif -%}
+{%- if form.errors -%}<div class="note note--err">{{ form.errors | default_errors }}</div>{%- endif -%}
+<input type="hidden" name="contact[Tipo]" value="Encargo a medida">
+<div class="f2"><label class="fld"><span>Nombre</span><input type="text" name="contact[name]" required autocomplete="name"></label>
+<label class="fld"><span>WhatsApp</span><input type="tel" name="contact[WhatsApp]" autocomplete="tel" placeholder="+34"></label></div>
+<label class="fld"><span>Email</span><input type="email" name="contact[email]" required autocomplete="email"></label>
+<label class="fld"><span>Cuéntanos tu idea</span><textarea name="contact[body]" rows="5" required placeholder="{{ section.settings.idea_ph }}"></textarea></label>
+<div class="f2"><label class="fld"><span>Medidas aproximadas</span><input type="text" name="contact[Medidas]" placeholder="Ej. 10 × 8 cm"></label>
+<label class="fld"><span>Colores</span><input type="text" name="contact[Colores]" placeholder="Ej. marino y blanco"></label></div>
+<div class="f2"><label class="fld"><span>Presupuesto</span><select name="contact[Presupuesto]"><option value="">Sin decidir</option>{%- assign ps = section.settings.budgets | split: ',' -%}{%- for p in ps -%}<option>{{ p | strip }}</option>{%- endfor -%}</select></label>
+<label class="fld"><span>¿Para cuándo lo necesitas?</span><input type="date" name="contact[Fecha]"></label></div>
+<p class="fld__hint">{{ section.settings.photo_hint }}</p>
+<div class="btns"><button type="submit" class="btn">{{ section.settings.submit }}</button>{%- if settings.whatsapp != blank -%}<button type="button" class="btn btn--ghost" data-wa-send="{{ settings.whatsapp | remove: '+' | remove: ' ' }}">{% render 'icon', name: 'whatsapp' %} Enviar por WhatsApp</button>{%- endif -%}</div>
+{%- endform -%}
+</div>
+{% schema %}
+{
+  "name": "Formulario de encargo",
+  "class": "sec-encargo",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Antetítulo",
+      "default": "A medida"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Tú lo imaginas, nosotros lo imprimimos."
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "select",
+      "id": "alineacion",
+      "label": "Alineación del título",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texto",
+      "default": "<p>Figuras, piezas, regalos para empresas o ese objeto que no encuentras en ninguna parte. Cuéntanos la idea y te decimos precio y plazo sin compromiso.</p>"
+    },
+    {
+      "type": "text",
+      "id": "idea_ph",
+      "label": "Ejemplo en el campo idea",
+      "default": "Ej. una figura de mi perro para el árbol, unos 8 cm"
+    },
+    {
+      "type": "text",
+      "id": "budgets",
+      "label": "Opciones de presupuesto (separadas por comas)",
+      "default": "Menos de 20 €, 20–50 €, 50–100 €, Más de 100 €"
+    },
+    {
+      "type": "text",
+      "id": "photo_hint",
+      "label": "Aviso sobre fotos",
+      "default": "¿Tienes una foto o un boceto? Mándanoslo por WhatsApp después de enviar el formulario."
+    },
+    {
+      "type": "text",
+      "id": "submit",
+      "label": "Botón enviar",
+      "default": "Enviar mi idea"
+    },
+    {
+      "type": "text",
+      "id": "ok",
+      "label": "Mensaje de enviado",
+      "default": "¡Recibido! Te escribimos en menos de 24 h con precio y plazo."
+    },
+    {
+      "type": "text",
+      "id": "wa_title",
+      "label": "Texto sobre WhatsApp",
+      "default": "¿Prefieres hablarlo?"
+    },
+    {
+      "type": "text",
+      "id": "wa_btn",
+      "label": "Botón WhatsApp",
+      "default": "Escríbenos por WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "wa_msg",
+      "label": "Mensaje inicial de WhatsApp",
+      "default": "Hola YaEn3D, tengo una idea para un encargo:"
+    },
+    {
+      "type": "select",
+      "id": "fondo",
+      "label": "Fondo",
+      "options": [
+        {
+          "value": "blanco",
+          "label": "Blanco"
+        },
+        {
+          "value": "suave",
+          "label": "Gris suave"
+        },
+        {
+          "value": "marino",
+          "label": "Marino"
+        }
+      ],
+      "default": "blanco"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Margen arriba",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Margen abajo",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Formulario de encargo"
+    }
+  ]
+}
+{% endschema %}

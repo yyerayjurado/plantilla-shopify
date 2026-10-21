@@ -1,0 +1,331 @@
+<style>#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top | times: 0.6 | round }}px;padding-bottom:{{ section.settings.padding_bottom | times: 0.6 | round }}px}@media(min-width:750px){#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px}}</style>
+{%- assign v = product.selected_or_first_available_variant -%}
+<div class="page pdp" data-product>
+<div class="pdp__gallery">
+<div class="pdp__main" data-main-media>
+{%- if product.featured_media -%}{%- for media in product.media -%}<div class="pdp__slide{% if media.id == v.featured_media.id or forloop.first and v.featured_media == nil %} is-active{% endif %}" data-media-id="{{ media.id }}">{{ media | image_url: width: 1600 | image_tag: loading: 'eager', widths: '500,800,1100,1600', sizes: '(min-width: 990px) 55vw, 100vw' }}</div>{%- endfor -%}
+{%- else -%}<div class="pdp__slide is-active">{{ 'product-1' | placeholder_svg_tag: 'placeholder' }}</div>{%- endif -%}
+</div>
+{%- if product.media.size > 1 -%}<div class="pdp__thumbs">{%- for media in product.media -%}<button type="button" class="pdp__thumb{% if forloop.first %} is-active{% endif %}" data-thumb="{{ media.id }}" aria-label="Foto {{ forloop.index }}">{{ media | image_url: width: 200 | image_tag: loading: 'lazy' }}</button>{%- endfor -%}</div>{%- endif -%}
+</div>
+<div class="pdp__info">
+{%- form 'product', product, id: 'pf', class: 'pdp__form', novalidate: 'novalidate' -%}
+<input type="hidden" name="id" value="{{ v.id }}" data-variant-id>
+{%- for block in section.blocks -%}
+{%- case block.type -%}
+{%- when 'eyebrow' -%}<p class="eyebrow" {{ block.shopify_attributes }}>{{ block.settings.text | default: product.vendor }}</p>
+{%- when 'title' -%}<h1 class="h1 pdp__title" style="--hs:{{ block.settings.size }}px" {{ block.shopify_attributes }}>{{ product.title }}</h1>
+{%- when 'price' -%}<div {{ block.shopify_attributes }} data-price-wrap>{% render 'price', product: product, target: v %}</div>{%- if block.settings.note != blank -%}<p class="pdp__note mono">{{ block.settings.note }}</p>{%- endif -%}
+{%- when 'variants' -%}
+{%- unless product.has_only_default_variant -%}<div class="opts" {{ block.shopify_attributes }}>{%- for option in product.options_with_values -%}<fieldset class="opt"><legend>{{ option.name }}: <span data-opt-label="{{ forloop.index0 }}">{{ option.selected_value }}</span></legend><div class="opt__vals">{%- for val in option.values -%}<label class="pill"><input type="radio" name="opt-{{ forloop.parentloop.index0 }}" value="{{ val | escape }}" data-opt="{{ forloop.parentloop.index0 }}"{% if option.selected_value == val %} checked{% endif %}><span>{{ val }}</span></label>{%- endfor -%}</div></fieldset>{%- endfor -%}</div>{%- endunless -%}
+{%- when 'personalizacion' -%}
+{%- assign tag = block.settings.tag | strip -%}
+{%- if tag == blank or product.tags contains tag -%}
+<label class="fld" {{ block.shopify_attributes }}><span>{{ block.settings.label }}{% if block.settings.required %} *{% endif %}</span>
+{%- if block.settings.multiline -%}<textarea name="properties[{{ block.settings.label | escape }}]" rows="3" maxlength="{{ block.settings.max }}" placeholder="{{ block.settings.placeholder | escape }}"{% if block.settings.required %} required{% endif %} data-count></textarea>{%- else -%}<input type="text" name="properties[{{ block.settings.label | escape }}]" maxlength="{{ block.settings.max }}" placeholder="{{ block.settings.placeholder | escape }}"{% if block.settings.required %} required{% endif %} data-count>{%- endif -%}
+<small class="fld__hint">{{ block.settings.hint }} <span class="mono" data-counter>0/{{ block.settings.max }}</span></small></label>
+{%- endif -%}
+{%- when 'eleccion' -%}
+{%- assign tag = block.settings.tag | strip -%}
+{%- if tag == blank or product.tags contains tag -%}
+{%- assign ops = block.settings.options | split: ',' -%}
+<fieldset class="opt" {{ block.shopify_attributes }}><legend>{{ block.settings.label }}</legend><div class="opt__vals">{%- for o in ops -%}<label class="pill"><input type="radio" name="properties[{{ block.settings.label | escape }}]" value="{{ o | strip | escape }}"{% if forloop.first %} checked{% endif %}><span>{{ o | strip }}</span></label>{%- endfor -%}</div></fieldset>
+{%- endif -%}
+{%- when 'buy' -%}
+<div class="buy" {{ block.shopify_attributes }}>
+<div class="qty"><button type="button" data-qty="-1" aria-label="Menos">−</button><input type="number" name="quantity" value="1" min="1" aria-label="Cantidad"><button type="button" data-qty="1" aria-label="Más">+</button></div>
+<button type="submit" class="btn btn--full" data-add{% unless v.available %} disabled{% endunless %}>{% if v.available %}{{ block.settings.label }}{% else %}Agotado{% endif %}</button>
+</div>
+{%- if block.settings.dynamic -%}<div class="buy__dyn">{{ form | payment_button }}</div>{%- endif -%}
+{%- when 'envio' -%}
+<ul class="perks" {{ block.shopify_attributes }}>{%- if block.settings.l1 != blank -%}<li><span class="mono">{{ block.settings.k1 }}</span>{{ block.settings.l1 }}</li>{%- endif -%}{%- if block.settings.l2 != blank -%}<li><span class="mono">{{ block.settings.k2 }}</span>{{ block.settings.l2 }}</li>{%- endif -%}{%- if block.settings.l3 != blank -%}<li><span class="mono">{{ block.settings.k3 }}</span>{{ block.settings.l3 }}</li>{%- endif -%}</ul>
+{%- when 'descripcion' -%}<div class="rte pdp__desc" {{ block.shopify_attributes }}>{{ product.description }}</div>
+{%- when 'texto' -%}<div class="rte" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+{%- when 'desplegable' -%}<details class="qa qa--sm" {{ block.shopify_attributes }}><summary>{{ block.settings.title }}{% render 'icon', name: 'plus' %}</summary><div class="qa__a">{{ block.settings.text }}{%- if block.settings.page != blank -%}{{ block.settings.page.content }}{%- endif -%}</div></details>
+{%- when 'whatsapp' -%}{%- if settings.whatsapp != blank -%}<a class="link-arrow" {{ block.shopify_attributes }} target="_blank" rel="noopener" href="https://wa.me/{{ settings.whatsapp | remove: '+' | remove: ' ' }}?text={{ block.settings.msg | append: ' ' | append: product.title | url_encode }}">{% render 'icon', name: 'whatsapp' %} {{ block.settings.label }}</a>{%- endif -%}
+{%- endcase -%}
+{%- endfor -%}
+{%- endform -%}
+</div>
+<script type="application/json" data-product-json>{{ product | json }}</script>
+</div>
+{% schema %}
+{
+  "name": "Ficha de producto",
+  "class": "sec-pdp",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Margen arriba",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Margen abajo",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "eyebrow",
+      "name": "Antetítulo",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto (vacío = marca)",
+          "default": "Hecho en Jaén"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Título",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "size",
+          "label": "Tamaño",
+          "min": 24,
+          "max": 64,
+          "step": 2,
+          "unit": "px",
+          "default": 40
+        }
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Precio",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Nota bajo el precio",
+          "default": "IVA incluido · envío gratis desde 40 €"
+        }
+      ]
+    },
+    {
+      "type": "variants",
+      "name": "Variantes (color, tamaño)",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "personalizacion",
+      "name": "Texto personalizado",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Nombre del campo",
+          "default": "Nombre a imprimir"
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Ejemplo",
+          "default": "Ej. Lucía"
+        },
+        {
+          "type": "range",
+          "id": "max",
+          "label": "Máx. caracteres",
+          "min": 5,
+          "max": 100,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "checkbox",
+          "id": "multiline",
+          "label": "Varias líneas",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Obligatorio",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "hint",
+          "label": "Ayuda",
+          "default": "Lo imprimimos tal cual, revisa la ortografía."
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Mostrar solo en productos con esta etiqueta (vacío = en todos)",
+          "default": "personalizable"
+        }
+      ]
+    },
+    {
+      "type": "eleccion",
+      "name": "Elección extra (sin variante)",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Nombre",
+          "default": "Color del texto"
+        },
+        {
+          "type": "text",
+          "id": "options",
+          "label": "Opciones separadas por comas",
+          "default": "Blanco, Marino, Celeste, Rojo"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Mostrar solo con etiqueta (vacío = todos)",
+          "default": "personalizable"
+        }
+      ]
+    },
+    {
+      "type": "buy",
+      "name": "Botón comprar",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto",
+          "default": "Añadir a la cesta"
+        },
+        {
+          "type": "checkbox",
+          "id": "dynamic",
+          "label": "Mostrar botón de pago rápido",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "envio",
+      "name": "Ventajas",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "k1",
+          "label": "Dato 1",
+          "default": "3–5 días"
+        },
+        {
+          "type": "text",
+          "id": "l1",
+          "label": "Texto 1",
+          "default": "Fabricado a mano en Jaén"
+        },
+        {
+          "type": "text",
+          "id": "k2",
+          "label": "Dato 2",
+          "default": "4,95 €"
+        },
+        {
+          "type": "text",
+          "id": "l2",
+          "label": "Texto 2",
+          "default": "Envío. Gratis desde 40 €"
+        },
+        {
+          "type": "text",
+          "id": "k3",
+          "label": "Dato 3",
+          "default": "PLA"
+        },
+        {
+          "type": "text",
+          "id": "l3",
+          "label": "Texto 3",
+          "default": "Material de origen vegetal"
+        }
+      ]
+    },
+    {
+      "type": "descripcion",
+      "name": "Descripción",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "texto",
+      "name": "Texto libre",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texto",
+          "default": "<p>Texto.</p>"
+        }
+      ]
+    },
+    {
+      "type": "desplegable",
+      "name": "Desplegable",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Envío y plazos"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texto",
+          "default": "<p>Fabricamos en 3–5 días. Envío 4,95 €, gratis a partir de 40 €.</p>"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "O mostrar una página"
+        }
+      ]
+    },
+    {
+      "type": "whatsapp",
+      "name": "Enlace WhatsApp",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texto",
+          "default": "¿Lo quieres distinto? Pregúntanos"
+        },
+        {
+          "type": "text",
+          "id": "msg",
+          "label": "Mensaje",
+          "default": "Hola, tengo una pregunta sobre"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

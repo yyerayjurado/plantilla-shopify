@@ -1,0 +1,5 @@
+{%- assign t = target | default: product.selected_or_first_available_variant -%}
+<div class="price{% if t.compare_at_price > t.price %} price--sale{% endif %}">
+{%- if product.price_varies and show_from -%}<span class="price__from">Desde</span> <span class="price__now">{{ product.price_min | money }}</span>
+{%- else -%}<span class="price__now" data-price>{{ t.price | money }}</span>{% if t.compare_at_price > t.price %} <s class="price__was" data-compare>{{ t.compare_at_price | money }}</s>{% endif %}{%- endif -%}
+</div>

@@ -1,0 +1,78 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_bottom": 0
+      }
+    },
+    "form": {
+      "type": "yn-encargo",
+      "settings": {}
+    },
+    "como": {
+      "type": "yn-como-funciona",
+      "blocks": {
+        "p1": {
+          "type": "paso",
+          "settings": {
+            "title": "Nos cuentas la idea",
+            "text": "<p>Rellena el formulario o escríbenos por WhatsApp con fotos o bocetos.</p>"
+          }
+        },
+        "p2": {
+          "type": "paso",
+          "settings": {
+            "title": "Te damos precio",
+            "text": "<p>En menos de 24 h te decimos precio, plazo y te enseñamos el diseño.</p>"
+          }
+        },
+        "p3": {
+          "type": "paso",
+          "settings": {
+            "title": "Lo imprimimos y enviamos",
+            "text": "<p>Cuando das el visto bueno, lo fabricamos y te lo mandamos.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "fondo": "suave"
+      }
+    },
+    "faq": {
+      "type": "yn-faq",
+      "blocks": {
+        "q1": {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿Cuánto cuesta un encargo?",
+            "a": "<p>Depende del tamaño, el tiempo de impresión y el diseño. Te damos precio cerrado antes de empezar.</p>"
+          }
+        },
+        "q2": {
+          "type": "pregunta",
+          "settings": {
+            "q": "¿Puedo mandar un archivo STL?",
+            "a": "<p>Sí, mándalo por WhatsApp o email y lo revisamos.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "form",
+    "como",
+    "faq"
+  ]
+}
