@@ -1,6 +1,6 @@
 <style>#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top | times: 0.6 | round }}px;padding-bottom:{{ section.settings.padding_bottom | times: 0.6 | round }}px}@media(min-width:750px){#shopify-section-{{ section.id }}{padding-top:{{ section.settings.padding_top }}px;padding-bottom:{{ section.settings.padding_bottom }}px}}</style>
 {%- assign v = product.selected_or_first_available_variant -%}
-<div class="page pdp" data-product>
+<div class="page pdp" data-product style="--pr:{{ section.settings.ratio }}">
 <div class="pdp__gallery">
 <div class="pdp__main" data-main-media>
 {%- if product.featured_media -%}{%- for media in product.media -%}<div class="pdp__slide{% if media.id == v.featured_media.id or forloop.first and v.featured_media == nil %} is-active{% endif %}" data-media-id="{{ media.id }}">{{ media | image_url: width: 1600 | image_tag: loading: 'eager', widths: '500,800,1100,1600', sizes: '(min-width: 990px) 55vw, 100vw' }}</div>{%- endfor -%}
@@ -54,6 +54,30 @@
   "name": "Ficha de producto",
   "class": "sec-pdp",
   "settings": [
+    {
+      "type": "header",
+      "content": "Fotos"
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Proporción de las fotos",
+      "options": [
+        {
+          "value": "4/5",
+          "label": "Vertical (4:5)"
+        },
+        {
+          "value": "1/1",
+          "label": "Cuadrada"
+        },
+        {
+          "value": "3/4",
+          "label": "Vertical alta (3:4)"
+        }
+      ],
+      "default": "4/5"
+    },
     {
       "type": "header",
       "content": "Espaciado"

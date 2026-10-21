@@ -19,6 +19,12 @@
     y `base.css` la usa.
 - [x] Opiniones ocultas en la portada hasta tener reseñas reales.
 - [x] Bloque de Navidad visible, con cuenta atrás hasta el 15/12/2026.
+- [x] Producto real: **Virgen de la Cabeza** en `extras/producto-virgen-de-la-cabeza.csv`. Tiene 12 opciones
+  (Color: Azul claro / Rosa claro / Blanco × Tamaño: 10 / 15 / 20 / 25 cm), va en borrador y sin precio.
+  Cada color lleva su foto: las hizo el dueño con IA y están en `extras/fotos/`. La importación las
+  descarga de GitHub con enlaces fijados a un commit (el proyecto es público).
+- [x] Ficha de producto: la proporción de las fotos ahora es un ajuste (vertical 4:5 por defecto).
+  Antes era cuadrada a fuego y cortaba las fotos verticales. Más aire entre las opciones de color y de tamaño.
 - [ ] **Cambios de diseño**: el dueño eligió "el diseño del zip, pero con cambios"; falta que diga cuáles.
 
 ## Decisiones
