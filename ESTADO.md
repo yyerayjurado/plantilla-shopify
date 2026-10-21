@@ -8,6 +8,13 @@
 - Productos de ejemplo: `extras/productos-ejemplo.csv`, para importar en Productos › Importar
   (3 productos en borrador y **sin precio**, porque los precios los pone el dueño).
 
+## Tienda
+- Dirección: 0nb8jx-ja.myshopify.com (sin conexión desde aquí: el dueño edita en su panel y yo le guío).
+- La Virgen la creó el dueño a mano en su panel, sin el archivo de importación:
+  «Estatua Virgen de la Cabeza de Andújar» (handle `estatua-virgen-de-la-cabeza-de-andujar`), con
+  opciones Color (Rosa, Azul, Blanco) y tamaño. Se le pasaron la descripción, las fotos por color, los
+  precios por tamaño, «seguir vendiendo sin stock» (fabricación bajo pedido) y la descripción para buscadores.
+
 ## Fases
 - [x] Tema revisado con el comprobador de Shopify: sin errores, solo 4 avisos por cargar las fuentes desde Google.
 - [x] Vista previa local con datos de prueba (ordenador y móvil) y auto-revisión.
